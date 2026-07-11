@@ -90,41 +90,69 @@ section{padding:100px 5%}
 .tag{padding:5px 12px;background:rgba(124,110,247,.1);border:1px solid rgba(124,110,247,.2);color:var(--text);border-radius:6px;font-size:.82rem;font-weight:500;transition:all .2s}
 .tag:hover{background:rgba(124,110,247,.2);border-color:var(--accent)}
 
-/* PROJECTS */
+/* PROJECTS CAROUSEL */
 #projects{background:var(--surface)}
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
-.project-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px;position:relative;overflow:hidden;transition:all .3s}
+.carousel-wrap{position:relative;max-width:1200px;margin:0 auto}
+.carousel-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 20px;cursor:grab;user-select:none;
+  scrollbar-width:thin;scrollbar-color:rgba(124,110,247,.55) rgba(255,255,255,.06)}
+.carousel-track.dragging{cursor:grabbing;scroll-snap-type:none}
+.carousel-track::-webkit-scrollbar{height:8px}
+.carousel-track::-webkit-scrollbar-track{background:rgba(255,255,255,.06);border-radius:4px}
+.carousel-track::-webkit-scrollbar-thumb{background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px}
+.carousel-track::-webkit-scrollbar-thumb:hover{background:linear-gradient(90deg,#8f83ff,#ee85ff)}
+.carousel-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
+  background:rgba(14,14,26,.85);border:1px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;backdrop-filter:blur(10px);transition:background .25s,border-color .25s,opacity .25s,transform .2s;z-index:5;font-size:1.15rem}
+.carousel-nav:hover{background:rgba(124,110,247,.35);border-color:var(--accent);transform:translateY(-50%) scale(1.06)}
+.carousel-nav:disabled{opacity:0;pointer-events:none}
+.carousel-nav.prev{left:-16px}
+.carousel-nav.next{right:-16px}
+
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px;position:relative;overflow:hidden;transition:all .3s;
+  flex:0 0 340px;scroll-snap-align:start;display:flex;flex-direction:column}
 .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:.3s}
 .project-card:hover{transform:translateY(-6px);border-color:rgba(124,110,247,.3);box-shadow:0 20px 60px rgba(124,110,247,.1)}
 .project-card:hover::before{opacity:1}
 .project-emoji{font-size:2rem;margin-bottom:16px}
 .project-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.15rem;margin-bottom:12px}
-.project-card p{color:var(--muted);font-size:.9rem;line-height:1.7;margin-bottom:20px}
-.project-techs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+.project-card p{color:var(--muted);font-size:.9rem;line-height:1.7;margin-bottom:16px}
+.project-card p.clamp-desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.project-card p.clamp-desc.expanded{-webkit-line-clamp:unset;overflow:visible}
+.project-readmore{background:none;border:none;color:var(--accent);font-size:.82rem;font-weight:600;cursor:pointer;padding:0;margin-bottom:16px;align-self:flex-start}
+.project-readmore:hover{opacity:.75}
+.project-techs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
 .tech-chip{padding:3px 10px;background:rgba(232,108,255,.08);border:1px solid rgba(232,108,255,.2);color:var(--accent2);border-radius:4px;font-size:.75rem;font-weight:600}
-.project-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88rem;font-weight:500;transition:gap .2s}
+.project-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.88rem;font-weight:500;transition:gap .2s;margin-top:auto}
 .project-link:hover{gap:10px}
+.project-image {width: 100%;height: 180px;object-fit: cover;border-radius: 12px;margin-bottom: 1rem;display: block;}
 
-/* CERTIFICATIONS */
-.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-.cert-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px;transition:all .3s}
-.cert-card:hover{border-color:rgba(124,110,247,.4);transform:translateY(-4px)}
-.cert-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(124,110,247,.2),rgba(232,108,255,.2));display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:16px}
-.cert-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:6px}
-.cert-card p{color:var(--muted);font-size:.82rem}
-
-/* CERT CARDS WITH IMAGES */
-.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.cert-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:all .3s}
+/* CERTIFICATIONS CAROUSEL */
+.cert-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:all .3s;
+  flex:0 0 300px;scroll-snap-align:start;display:flex;flex-direction:column}
 .cert-card:hover{border-color:rgba(124,110,247,.5);transform:translateY(-5px);box-shadow:0 16px 40px rgba(124,110,247,.15)}
-.cert-img-wrap{width:100%;aspect-ratio:16/9;overflow:hidden;background:#f5f5ee}
-.cert-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.cert-card:hover .cert-img-wrap img{transform:scale(1.04)}
-.cert-info{padding:18px 20px}
-.cert-icon{font-size:1.3rem;margin-bottom:8px}
-.cert-info h4{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:4px;color:var(--text)}
-.cert-info p{color:var(--muted);font-size:.8rem;margin-bottom:10px}
-.cert-view{font-size:.8rem;color:var(--accent);font-weight:600}
+.cert-img-wrap{width:100%;aspect-ratio:16/9;overflow:hidden;background:#f5f5ee;cursor:pointer;position:relative}
+.cert-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s;display:block}
+.cert-img-wrap:hover img{transform:scale(1.05)}
+.cert-img-wrap .zoom-hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(10,8,18,.45);color:#fff;opacity:0;transition:opacity .25s;font-size:.78rem;letter-spacing:.04em;font-weight:600}
+.cert-img-wrap:hover .zoom-hint{opacity:1}
+.cert-info{padding:18px 20px;display:flex;flex-direction:column;flex:1}
+.cert-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.cert-icon{width:40px;height:40px;flex:0 0 40px;border-radius:11px;background:linear-gradient(135deg,rgba(124,110,247,.25),rgba(232,108,255,.2));
+  display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.cert-titles h4{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:2px;color:var(--text);line-height:1.25}
+.cert-titles p{color:var(--muted);font-size:.78rem}
+.cert-desc{color:var(--muted);font-size:.83rem;line-height:1.55;margin-bottom:10px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cert-desc.expanded{-webkit-line-clamp:unset;overflow:visible}
+.cert-readmore{background:none;border:none;color:var(--accent);font-size:.78rem;font-weight:600;cursor:pointer;padding:0;margin-bottom:14px;align-self:flex-start}
+.cert-readmore:hover{opacity:.75}
+.cert-actions{display:flex;gap:10px;margin-top:auto}
+.cert-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;border-radius:9px;
+  font-size:.78rem;font-weight:600;text-decoration:none;cursor:pointer;border:1px solid var(--border);transition:all .2s;background:transparent;color:var(--text)}
+.cert-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cert-btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff}
+.cert-btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,110,247,.35);color:#fff}
 
 /* CERT LIGHTBOX */
 .cert-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9997;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px)}
@@ -204,4 +232,9 @@ footer span{background:linear-gradient(135deg,var(--accent),var(--accent2));-web
   .cv-cert-list{columns:1}
   .cv-box{padding:30px 20px}
   .cv-header{flex-direction:column}
+  .carousel-nav{width:38px;height:38px;font-size:1rem}
+  .carousel-nav.prev{left:-8px}
+  .carousel-nav.next{right:-8px}
+  .project-card{flex-basis:280px}
+  .cert-card{flex-basis:250px}
 }
