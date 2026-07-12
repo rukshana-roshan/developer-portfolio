@@ -100,10 +100,14 @@ function initExpCoverflow(){
   // offset ±1 = immediate left/right neighbour, tilted in 3D
   // offset ±2+ = pushed further back and faded out
   function render(){
-    const isMobile = window.innerWidth <= 768;
-    const stepX = isMobile ? 110 : 170; // horizontal spacing between cards
-    const stepZ = isMobile ? 80  : 120; // how far back each card sits
-    const tilt  = 42;                   // rotateY angle in degrees
+    const w = window.innerWidth;
+    let stepX, stepZ;
+    if (w <= 340)      { stepX = 68;  stepZ = 55; }  // very small phones
+    else if (w <= 420) { stepX = 78;  stepZ = 60; }  // small phones
+    else if (w <= 640) { stepX = 95;  stepZ = 70; }  // large phones
+    else if (w <= 900) { stepX = 115; stepZ = 85; }  // tablets
+    else               { stepX = 170; stepZ = 120; } // desktop
+    const tilt = 42; // rotateY angle in degrees
 
     cards.forEach((card, i) => {
       const offset = i - current;

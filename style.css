@@ -316,26 +316,132 @@ footer span{background:linear-gradient(135deg,var(--accent),var(--accent2));-web
 .fade-in{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
 .fade-in.visible{opacity:1;transform:translateY(0)}
 
-/* RESPONSIVE */
-@media(max-width:768px){
-  .nav-links{display:none;position:fixed;top:0;right:0;height:100vh;width:70%;background:var(--surface);border-left:1px solid var(--border);flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;font-size:1.1rem}
+/* ============================================================
+   RESPONSIVE — mobile-last cascade. Each block below overrides
+   the previous one for progressively narrower viewports, so
+   values only need to be set where they actually change.
+============================================================ */
+
+/* Prevent any element from forcing horizontal scroll */
+img,video,svg{max-width:100%;height:auto}
+html,body{width:100%;max-width:100%}
+
+/* Small laptops / large tablets (landscape) */
+@media(max-width:1180px){
+  .hero-inner{gap:40px}
+  .about-grid{gap:44px}
+  .contact-wrapper{gap:44px}
+}
+
+/* Tablets (landscape) — trim nav so 7 links still fit */
+@media(max-width:1024px){
+  nav{padding:18px 4%}
+  .nav-links{gap:1.4rem}
+  .nav-links a{font-size:.85rem}
+  .hero-img-frame{width:280px;height:330px}
+  .skills-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .contact-wrapper{grid-template-columns:1fr 1fr}
+}
+
+/* Tablets (portrait) & narrow windows — switch to hamburger nav
+   and stack the two-column layouts */
+@media(max-width:900px){
+  nav{padding:16px 4%}
+  .nav-links{display:none;position:fixed;top:0;right:0;height:100vh;width:min(300px,75%);background:var(--surface);border-left:1px solid var(--border);flex-direction:column;justify-content:center;align-items:center;gap:2.2rem;font-size:1.05rem;padding:40px 24px;overflow-y:auto}
   .nav-links.open{display:flex}
   .hamburger{display:flex}
-  .hero-inner{flex-direction:column-reverse;text-align:center}
-  .hero-img-frame{width:220px;height:260px}
+  section{padding:80px 5%}
+  .hero-inner{flex-direction:column-reverse;text-align:center;gap:44px}
+  .hero-sub{margin-left:auto;margin-right:auto}
+  .hero-img-frame{width:260px;height:310px}
   .hero-btns{justify-content:center}
   .hero-socials{justify-content:center}
   .hero-stats{justify-content:center}
-  .about-grid,.contact-wrapper{grid-template-columns:1fr}
-  .about-img-wrap{max-width:280px;margin:0 auto}
+  .about-grid,.contact-wrapper{grid-template-columns:1fr;gap:40px}
+  .about-img-wrap{max-width:320px;margin:0 auto}
+  .about-cards{max-width:420px;width:100%;margin:0 auto}
   .form-row{grid-template-columns:1fr}
+  .contact-form{padding:26px}
+}
+
+/* Phones (large) */
+@media(max-width:640px){
+  section{padding:70px 5%}
+  .section-title{margin-bottom:34px;font-size:clamp(1.7rem,7vw,2.2rem)}
+  .divider{margin:12px 0 34px}
+  .hero-text h1{font-size:clamp(2.1rem,9vw,2.8rem)}
+  .hero-sub{font-size:.95rem;max-width:100%}
+  .badge{font-size:.75rem;padding:5px 12px;margin-bottom:18px}
+  .hero-btns{flex-direction:column;width:100%;gap:12px}
+  .hero-btns .btn{width:100%;text-align:center}
+  .hero-img-frame{width:220px;height:260px}
+  .about-cards{grid-template-columns:1fr 1fr;gap:12px}
+  .about-card{padding:18px}
+  .about-card-num{font-size:2rem}
+  .skills-grid{grid-template-columns:1fr}
+  .skill-group{padding:22px}
+  .carousel-track{padding:8px 30px 20px;gap:16px}
+  .carousel-nav{width:36px;height:36px;font-size:.95rem}
+  .carousel-nav.prev{left:0}
+  .carousel-nav.next{right:0}
+  .project-card{flex-basis:82vw;max-width:320px;padding:22px}
+  .cert-card{flex-basis:78vw;max-width:290px}
+  .contact-info h3{font-size:1.25rem}
+  .contact-form{padding:22px}
+  .form-btn{padding:13px}
+  .cv-box{padding:26px 18px;border-radius:14px}
+  .cv-header{flex-direction:column}
+  .cv-name{font-size:1.7rem}
   .cv-skill-grid{grid-template-columns:1fr}
   .cv-cert-list{columns:1}
-  .cv-box{padding:30px 20px}
-  .cv-header{flex-direction:column}
-  .carousel-nav{width:38px;height:38px;font-size:1rem}
-  .carousel-nav.prev{left:-8px}
-  .carousel-nav.next{right:-8px}
-  .project-card{flex-basis:280px}
-  .cert-card{flex-basis:250px}
+  .exp-stage{height:300px}
+  .exp-card{width:220px;padding:20px}
+  .exp-nav-btn{width:38px;height:38px}
+  footer{padding:32px 5%}
+}
+
+/* Small phones */
+@media(max-width:420px){
+  nav{padding:14px 4%}
+  .logo{font-size:.95rem}
+  section{padding:60px 4%}
+  .hero-text h1{font-size:1.9rem}
+  .hero-img-frame{width:190px;height:225px}
+  .about-img-wrap{max-width:260px}
+  .about-cards{gap:8px}
+  .about-card{padding:14px;border-radius:12px}
+  .about-card-num{font-size:1.7rem}
+  .about-card-label{font-size:.72rem}
+  .stat{padding:12px 14px}
+  .exp-card{width:185px;padding:16px}
+  .exp-card h4{font-size:.88rem}
+  .exp-desc{font-size:.78rem}
+  .contact-item-text strong{font-size:.82rem;word-break:break-word}
+  .cv-name{font-size:1.4rem}
+  .cv-role{font-size:.85rem}
+  .cv-print-btn{width:100%;padding:12px}
+}
+
+/* Very small phones */
+@media(max-width:340px){
+  .hero-text h1{font-size:1.7rem}
+  .hero-img-frame{width:170px;height:200px}
+  .about-cards{grid-template-columns:1fr}
+  .exp-card{width:165px}
+}
+
+/* Short-height / landscape phones — hero shouldn't force a full
+   100vh scroll when there's barely any vertical space */
+@media(max-height:480px) and (orientation:landscape){
+  #home{min-height:auto;padding:110px 5% 50px}
+  .hero-img-frame{width:170px;height:200px}
+  .exp-stage{height:260px}
+  .cv-box{max-height:85vh}
+}
+
+/* Respect users who prefer reduced motion */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .fade-in{transition:none;opacity:1;transform:none}
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
 }
