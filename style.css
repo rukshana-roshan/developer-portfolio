@@ -109,7 +109,7 @@ section{padding:100px 5%}
 .carousel-nav.next{right:-16px}
 
 .project-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px;position:relative;overflow:hidden;transition:all .3s;
-  flex:0 0 340px;scroll-snap-align:start;display:flex;flex-direction:column}
+  flex:0 0 340px;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column}
 .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:.3s}
 .project-card:hover{transform:translateY(-6px);border-color:rgba(124,110,247,.3);box-shadow:0 20px 60px rgba(124,110,247,.1)}
 .project-card:hover::before{opacity:1}
@@ -128,7 +128,7 @@ section{padding:100px 5%}
 
 /* CERTIFICATIONS CAROUSEL */
 .cert-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:all .3s;
-  flex:0 0 300px;scroll-snap-align:start;display:flex;flex-direction:column}
+  flex:0 0 300px;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column}
 .cert-card:hover{border-color:rgba(124,110,247,.5);transform:translateY(-5px);box-shadow:0 16px 40px rgba(124,110,247,.15)}
 .cert-img-wrap{width:100%;aspect-ratio:16/9;overflow:hidden;background:#f5f5ee;cursor:pointer;position:relative}
 .cert-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s;display:block}
@@ -380,12 +380,12 @@ html,body{width:100%;max-width:100%}
   .about-card-num{font-size:2rem}
   .skills-grid{grid-template-columns:1fr}
   .skill-group{padding:22px}
-  .carousel-track{padding:8px 30px 20px;gap:16px}
-  .carousel-nav{width:36px;height:36px;font-size:.95rem}
-  .carousel-nav.prev{left:0}
-  .carousel-nav.next{right:0}
-  .project-card{flex-basis:82vw;max-width:320px;padding:22px}
-  .cert-card{flex-basis:78vw;max-width:290px}
+  .carousel-wrap{padding:0 2px 22px}
+  .carousel-track{padding:6px 6vw 8px;gap:16px;scroll-padding-left:6vw}
+  .carousel-nav{display:none}
+  .carousel-wrap::after{content:'← swipe →';display:block;text-align:center;color:var(--muted);font-size:.72rem;letter-spacing:.06em;margin-top:6px}
+  .project-card{flex-basis:88vw;max-width:360px;padding:22px}
+  .cert-card{flex-basis:88vw;max-width:340px}
   .contact-info h3{font-size:1.25rem}
   .contact-form{padding:22px}
   .form-btn{padding:13px}
