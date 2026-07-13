@@ -64,6 +64,76 @@ function initCarousel(trackId, prevId, nextId){
 initCarousel('projectsTrack', 'projectsPrev', 'projectsNext');
 initCarousel('certsTrack', 'certsPrev', 'certsNext');
 
+// HACKERANK
+
+(function(){
+  const viewport = document.querySelector('.hr-carousel-viewport');
+  const track = document.getElementById('hrTrack');
+  const cards = Array.from(track.querySelectorAll('.hr-card'));
+  const prevBtn = document.querySelector('.hr-arrow-prev');
+  const nextBtn = document.querySelector('.hr-arrow-next');
+  const dotsWrap = document.getElementById('hrDots');
+
+  cards.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'hr-dot';
+    dot.addEventListener('click', () => scrollToIndex(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function getActiveIndex(){
+    const viewportRect = viewport.getBoundingClientRect();
+    const viewportCenter = viewportRect.left + viewportRect.width / 2;
+    let closest = 0;
+    let minDist = Infinity;
+    cards.forEach((card, i) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
+      const dist = Math.abs(cardCenter - viewportCenter);
+      if (dist < minDist){ minDist = dist; closest = i; }
+    });
+    return closest;
+  }
+
+  function updateVisualState(){
+    const activeIndex = getActiveIndex();
+    cards.forEach((card, i) => {
+      card.classList.remove('is-active', 'is-prev', 'is-next');
+      if (i === activeIndex) card.classList.add('is-active');
+      else if (i === activeIndex - 1) card.classList.add('is-prev');
+      else if (i === activeIndex + 1) card.classList.add('is-next');
+    });
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === activeIndex));
+    prevBtn.disabled = activeIndex === 0;
+    nextBtn.disabled = activeIndex === cards.length - 1;
+  }
+
+  function scrollToIndex(i){
+    i = Math.max(0, Math.min(cards.length - 1, i));
+    const card = cards[i];
+    const cardRect = card.getBoundingClientRect();
+    const viewportRect = viewport.getBoundingClientRect();
+    const cardCenterRelativeToViewport = (cardRect.left - viewportRect.left) + cardRect.width / 2;
+    const target = viewport.scrollLeft + cardCenterRelativeToViewport - viewport.clientWidth / 2;
+    viewport.scrollTo({ left: target, behavior: 'smooth' });
+  }
+
+  prevBtn.addEventListener('click', () => scrollToIndex(getActiveIndex() - 1));
+  nextBtn.addEventListener('click', () => scrollToIndex(getActiveIndex() + 1));
+
+  let ticking = false;
+  viewport.addEventListener('scroll', () => {
+    if (!ticking){
+      requestAnimationFrame(() => { updateVisualState(); ticking = false; });
+      ticking = true;
+    }
+  });
+
+  window.addEventListener('resize', () => scrollToIndex(getActiveIndex()));
+
+  requestAnimationFrame(() => { scrollToIndex(0); updateVisualState(); });
+})();
 
 /* ============================================================
    EXPERIENCE SECTION — 3D COVERFLOW
